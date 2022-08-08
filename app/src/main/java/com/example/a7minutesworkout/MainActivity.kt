@@ -15,10 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.flStart.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Here we will start the exercise.",
-                Toast.LENGTH_SHORT).show()
+
         }
     }
 }
