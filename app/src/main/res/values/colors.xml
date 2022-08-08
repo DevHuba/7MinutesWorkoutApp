@@ -17,6 +17,8 @@
     <color name="colorBtBasicBorder">#AD2D31</color>
     <color name="colorBtRipple">#D3BA62</color>
 
+    //Toolbar Color
+    <color name="colorTcControlNormal">#D3BA62</color>
 
 
 

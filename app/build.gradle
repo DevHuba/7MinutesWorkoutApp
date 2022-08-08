@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.a7minutesworkout"
+        applicationId "eu.devhuba.a7_minutes_workout"
         minSdk 24
         targetSdk 32
         versionCode 1

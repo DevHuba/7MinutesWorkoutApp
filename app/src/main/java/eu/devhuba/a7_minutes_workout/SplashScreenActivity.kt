@@ -1,27 +1,28 @@
-package com.example.a7minutesworkout
+package eu.devhuba.a7_minutes_workout
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import eu.devhuba.a7_minutes_workout.databinding.ActivitySplashScreenBinding
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val splashScreen = findViewById<View>(R.id.ssBackground)
+        val splashScreen = binding.ssBackground
         splashScreen.alpha = 0f
-        splashScreen.animate().setDuration(1500).alpha(0.5f).withEndAction {
+        splashScreen.animate().setDuration(1500).alpha(1f).withEndAction {
             val i = Intent(this, MainActivity::class.java)
             startActivity(i)
             finish()
         }
-
 
     }
 }

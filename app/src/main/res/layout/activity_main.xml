@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/home_second"
     android:padding="@dimen/main_screen_main_layout_padding"
-    tools:context=".MainActivity">
+    tools:context="eu.devhuba.a7_minutes_workout.MainActivity">
 
     <ImageView
         android:id="@+id/ivHome"

@@ -1,9 +1,9 @@
-package com.example.a7minutesworkout
+package eu.devhuba.a7_minutes_workout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.example.a7minutesworkout.databinding.ActivityMainBinding
+import eu.devhuba.a7_minutes_workout.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.flStart.setOnClickListener {
+            val intent = Intent(this, ExerciseActivity::class.java)
+                startActivity(intent)
 
         }
     }

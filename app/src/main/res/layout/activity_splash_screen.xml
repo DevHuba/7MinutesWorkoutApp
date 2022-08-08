@@ -5,7 +5,7 @@
     android:id="@+id/ssBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreenActivity"
+    tools:context="eu.devhuba.a7_minutes_workout.SplashScreenActivity"
     android:background="@drawable/splash_screen_old">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

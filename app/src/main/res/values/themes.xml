@@ -22,4 +22,12 @@
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
+    <!--    SPLASH SCREEN-->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.MaterialComponents.ActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorControlNormal">@color/colorTcControlNormal</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.a7minutesworkout">
+    package="eu.devhuba.a7_minutes_workout">
 
     <application
         android:allowBackup="true"
@@ -14,21 +14,22 @@
         android:theme="@style/Theme.7MinutesWorkout"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreenActivity"
-            android:theme="@style/Starting"
-            android:exported="true">
+            android:name="eu.devhuba.a7_minutes_workout.ExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name="eu.devhuba.a7_minutes_workout.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Starting">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="eu.devhuba.a7_minutes_workout.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.7MinutesWorkout">
-
-        </activity>
+            android:theme="@style/Theme.7MinutesWorkout" />
     </application>
 
 </manifest>

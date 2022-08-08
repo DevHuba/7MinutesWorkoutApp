@@ -1,4 +1,4 @@
-package com.example.a7minutesworkout
+package eu.devhuba.a7_minutes_workout
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
