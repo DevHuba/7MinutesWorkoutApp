@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_second"
+    android:padding="@dimen/main_screen_main_layout_padding"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/ivHome"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:contentDescription="@string/ivctHome"
+        android:src="@drawable/seven"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/glHomeImage"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHomeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65"
+        />
+
+    <FrameLayout
+        android:id="@+id/flStart"
+        android:layout_width="170dp"
+        android:layout_height="100dp"
+        android:background="@drawable/color_accent_border_ripple"
+        app:layout_constraintTop_toTopOf="@id/glHomeButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bebas_regular"
+            android:text="START"
+            android:textColor="@color/colorBtBasicBg"
+            android:textSize="@dimen/button_text_size" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

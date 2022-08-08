@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">7MinutesWorkout</string>
+    <string name="ivCdHome">logo image</string>
+    <string name="ivCdSplashScreen">splash screen image</string>
+</resources>
