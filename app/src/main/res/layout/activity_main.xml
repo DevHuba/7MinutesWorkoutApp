@@ -40,7 +40,7 @@
         android:id="@+id/flStart"
         android:layout_width="170dp"
         android:layout_height="100dp"
-        android:background="@drawable/color_accent_border_ripple"
+        android:background="@drawable/btn_start_ripple"
         app:layout_constraintTop_toTopOf="@id/glHomeButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,8 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/bebas_regular"
-            android:text="START"
-            android:textColor="@color/colorBtBasicBg"
+            android:text="@string/btn_start"
+            android:textColor="@color/colorBtOne"
             android:textSize="@dimen/button_text_size" />
 
     </FrameLayout>

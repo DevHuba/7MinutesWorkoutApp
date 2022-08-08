@@ -12,10 +12,10 @@
     <color name="colorPrimaryDark">#B2212121</color>
 
     //Home Button
-    <color name="colorBtBasicBg">#0E0E0E</color>
-    <color name="colorBtBasicBg2">#4A4E4F</color>
-    <color name="colorBtBasicBorder">#AD2D31</color>
-    <color name="colorBtRipple">#D3BA62</color>
+    <color name="colorBtOne">#0E0E0E</color>
+    <color name="colorBtTwo">#4A4E4F</color>
+    <color name="colorBtThree">#AD2D31</color>
+    <color name="colorBtFour">#D3BA62</color>
 
     //Toolbar Color
     <color name="colorTcControlNormal">#D3BA62</color>

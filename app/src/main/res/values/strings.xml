@@ -2,4 +2,6 @@
     <string name="app_name">7MinutesWorkout</string>
     <string name="ivCdHome">logo image</string>
     <string name="ivCdSplashScreen">splash screen image</string>
+    <string name="exTvTitle">GET READY FOR</string>
+    <string name="btn_start">START</string>
 </resources>

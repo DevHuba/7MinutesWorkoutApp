@@ -16,13 +16,21 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val splashScreen = binding.ssBackground
-        splashScreen.alpha = 0f
-        splashScreen.animate().setDuration(1500).alpha(1f).withEndAction {
-            val i = Intent(this, MainActivity::class.java)
-            startActivity(i)
-            finish()
-        }
+
+//        Uncomment for enable splashscreen and home screen
+
+//        val splashScreen = binding.ssBackground
+//        splashScreen.alpha = 0f
+//        splashScreen.animate().setDuration(1500).alpha(1f).withEndAction {
+//            val i = Intent(this, MainActivity::class.java)
+//            startActivity(i)
+//            finish()
+//        }
+
+
+        val i = Intent(this, MainActivity::class.java)
+        startActivity(i)
+        finish()
 
     }
 }

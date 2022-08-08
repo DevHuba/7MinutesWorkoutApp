@@ -16,6 +16,15 @@ class ExerciseActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.tbExercise)
+        
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        } 
+
+        //Back button logic
+        binding.tbExercise.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
     }
 }
