@@ -6,7 +6,7 @@
         android:color="@color/colorBtThree"
         android:width="@dimen/circular_border_stroke_width" />
 
-    <solid android:color="@color/colorBtTwo"/>
+    <solid android:color="@color/colorBtOne"/>
 
     <corners android:radius="100dp" />
 
