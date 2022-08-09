@@ -3,9 +3,10 @@ package eu.devhuba.a7_minutes_workout
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.WindowManager
+import android.view.View
 import android.widget.Toast
 import eu.devhuba.a7_minutes_workout.databinding.ActivityExerciseBinding
+import kotlin.math.log
 
 
 class ExerciseActivity : AppCompatActivity() {
@@ -13,8 +14,12 @@ class ExerciseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityExerciseBinding
 
     private var restTimer: CountDownTimer? = null
+    private var exerciseTimer: CountDownTimer? = null
+    private val exerciseStartTime = 10
+    private var exerciseProgress = 0
+    private val restStartTime = 5
     private var restProgress = 0
-    private val restStartTime = 10
+    private var exerciseCounter = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +31,7 @@ class ExerciseActivity : AppCompatActivity() {
         //Hide toolbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        //Start preparation timer
-        setUpRestView()
+
 
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -39,30 +43,82 @@ class ExerciseActivity : AppCompatActivity() {
         }
 
 
+        //Start preparation timer
+        setupRestView()
+
+
     }
-    
-    private fun setUpRestView() {
+
+    private fun setupRestView() {
         if (restTimer != null) {
             restTimer?.cancel()
+            exerciseTimer?.cancel()
             restProgress = 0
+            exerciseProgress = 0
         }
+
 
         setRestProgressBar()
     }
 
     private fun setRestProgressBar() {
-        binding.progressBar.progress = restProgress
+        //Show only rest frame layout and title
+        binding.flProgressbarRest.visibility = View.VISIBLE
+        binding.flProgressbarExercise.visibility = View.GONE
+        binding.tvTitleRest.visibility = View.VISIBLE
+        binding.tvTitleExercise.visibility = View.GONE
 
-        restTimer = object : CountDownTimer(10000, 1000) {
+        binding.pbRest.progress = restProgress
+
+        restTimer = object : CountDownTimer(5000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
-                binding.progressBar.progress = restStartTime - restProgress
-                binding.tvTimer.text = (restStartTime - restProgress).toString()
+                binding.pbRest.progress = restStartTime - restProgress
+                binding.tvTimerRest.text = (restStartTime - restProgress).toString()
             }
 
             override fun onFinish() {
-                Toast.makeText(this@ExerciseActivity, "Rest is done need to start with exercise", Toast.LENGTH_SHORT)
-                    .show()
+                restProgress = 0
+
+                //Show only exercise frame layout and title
+                binding.flProgressbarRest.visibility = View.GONE
+                binding.flProgressbarExercise.visibility = View.VISIBLE
+                binding.tvTitleRest.visibility = View.GONE
+                binding.tvTitleExercise.visibility = View.VISIBLE
+
+                //Activate exercise timer
+                setExerciseProgressBar()
+
+            }
+        }.start()
+
+    }
+
+    private fun setExerciseProgressBar() {
+        exerciseCounter++
+        binding.pbExercise.progress = exerciseProgress
+
+        exerciseTimer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                exerciseProgress++
+                binding.pbExercise.progress = exerciseStartTime - exerciseProgress
+                binding.tvTimerExercise.text = (exerciseStartTime - exerciseProgress).toString()
+            }
+
+            override fun onFinish() {
+                exerciseProgress = 0
+                println(exerciseCounter)
+
+                if (exerciseCounter == 2) {
+
+                    // TODO: Add here DONE ACTIVITY. 
+                    Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)
+                        .show()
+
+                } else {
+                    setRestProgressBar()
+
+                }
             }
         }.start()
 
@@ -73,7 +129,9 @@ class ExerciseActivity : AppCompatActivity() {
 
         if (restTimer != null) {
             restTimer?.cancel()
+            exerciseTimer?.cancel()
             restProgress = 0
+            exerciseProgress = 0
         }
 
     }

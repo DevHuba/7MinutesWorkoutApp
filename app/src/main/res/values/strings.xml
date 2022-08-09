@@ -4,4 +4,6 @@
     <string name="ivCdSplashScreen">splash screen image</string>
     <string name="exTvTitle">GET READY FOR</string>
     <string name="btn_start">START</string>
+    <string name="tb_title">7 MINUTES WORKOUT</string>
+    <string name="exercise_name">Exercise Name</string>
 </resources>

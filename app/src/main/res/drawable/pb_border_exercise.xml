@@ -4,7 +4,7 @@
 
     <stroke
         android:color="@color/colorBtThree"
-        android:width="@dimen/circular_border_stroke_width" />
+        android:width="@dimen/pb_border_width_exercise" />
 
     <solid android:color="@color/colorBtOne"/>
 
