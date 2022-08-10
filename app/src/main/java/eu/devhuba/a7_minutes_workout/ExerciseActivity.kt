@@ -21,7 +21,6 @@ class ExerciseActivity : AppCompatActivity() {
     private var restProgress = 0
     private var exerciseCounter = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
@@ -30,8 +29,6 @@ class ExerciseActivity : AppCompatActivity() {
 
         //Hide toolbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-
 
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -42,7 +39,6 @@ class ExerciseActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-
         //Start preparation timer
         setupRestView()
 
@@ -50,24 +46,22 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun setupRestView() {
-        if (restTimer != null) {
-            restTimer?.cancel()
-            exerciseTimer?.cancel()
-            restProgress = 0
-            exerciseProgress = 0
-        }
-
-
-        setRestProgressBar()
-    }
-
-    private fun setRestProgressBar() {
         //Show only rest frame layout and title
         binding.flProgressbarRest.visibility = View.VISIBLE
         binding.flProgressbarExercise.visibility = View.GONE
         binding.tvTitleRest.visibility = View.VISIBLE
         binding.tvTitleExercise.visibility = View.GONE
 
+        //Clean rest timer
+        if (restTimer != null) {
+            restTimer?.cancel()
+            restProgress = 0
+        }
+        //Start timer
+        setRestProgressBar()
+    }
+
+    private fun setRestProgressBar() {
         binding.pbRest.progress = restProgress
 
         restTimer = object : CountDownTimer(5000, 1000) {
@@ -80,18 +74,29 @@ class ExerciseActivity : AppCompatActivity() {
             override fun onFinish() {
                 restProgress = 0
 
-                //Show only exercise frame layout and title
-                binding.flProgressbarRest.visibility = View.GONE
-                binding.flProgressbarExercise.visibility = View.VISIBLE
-                binding.tvTitleRest.visibility = View.GONE
-                binding.tvTitleExercise.visibility = View.VISIBLE
-
-                //Activate exercise timer
-                setExerciseProgressBar()
+                //Activate exercise layout
+                setupExerciseView()
 
             }
         }.start()
 
+    }
+
+    private fun setupExerciseView() {
+        //Show only exercise frame layout and title
+        binding.flProgressbarRest.visibility = View.GONE
+        binding.flProgressbarExercise.visibility = View.VISIBLE
+        binding.tvTitleRest.visibility = View.GONE
+        binding.tvTitleExercise.visibility = View.VISIBLE
+
+        //Clean exercise timer
+        if (exerciseTimer != null) {
+            exerciseTimer?.cancel()
+            exerciseProgress = 0
+        }
+
+        //Start timer
+        setExerciseProgressBar()
     }
 
     private fun setExerciseProgressBar() {
@@ -116,7 +121,7 @@ class ExerciseActivity : AppCompatActivity() {
                         .show()
 
                 } else {
-                    setRestProgressBar()
+                    setupRestView()
 
                 }
             }
