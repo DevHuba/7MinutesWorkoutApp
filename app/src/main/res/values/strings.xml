@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">7MinutesWorkout</string>
-    <string name="ivCdHome">logo image</string>
-    <string name="ivCdSplashScreen">splash screen image</string>
-    <string name="exTvTitle">GET READY FOR</string>
+    <string name="iv_cd_home">logo image</string>
+    <string name="iv_cd_splash_screen">splash screen image</string>
+    <string name="ex_tv_title">GET READY FOR</string>
     <string name="btn_start">START</string>
     <string name="tb_title">7 MINUTES WORKOUT</string>
-    <string name="exercise_name">Exercise Name</string>
+    <string name="iv_exercise_image">exercise image</string>
+    <string name="tv_next_exercise">next -> %1$s </string>
 </resources>

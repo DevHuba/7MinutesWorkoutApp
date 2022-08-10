@@ -6,26 +6,36 @@ import android.os.CountDownTimer
 import android.view.View
 import android.widget.Toast
 import eu.devhuba.a7_minutes_workout.databinding.ActivityExerciseBinding
-import kotlin.math.log
 
 
 class ExerciseActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityExerciseBinding
 
+    private val restMillis: Long = 10000
+    private val exerciseMillis: Long = 30000
+    private val countDown: Long = 1000
+
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
-    private val exerciseStartTime = 10
+    private val exerciseStartTime = 5
     private var exerciseProgress = 0
     private val restStartTime = 5
     private var restProgress = 0
     private var exerciseCounter = 0
+
+    private var exerciseList: ArrayList<ExerciseModel>? = null
+    private var currentExercisePosition = -1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
+
+        binding.ivExercise.visibility = View.INVISIBLE
+
 
         //Hide toolbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -34,6 +44,8 @@ class ExerciseActivity : AppCompatActivity() {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
+        exerciseList = Constants.defaultExerciseList()
+
         //Back button logic
         binding.tbExercise.setNavigationOnClickListener {
             onBackPressed()
@@ -41,16 +53,16 @@ class ExerciseActivity : AppCompatActivity() {
 
         //Start preparation timer
         setupRestView()
-
-
     }
 
+    //Start rest layout
     private fun setupRestView() {
         //Show only rest frame layout and title
         binding.flProgressbarRest.visibility = View.VISIBLE
         binding.flProgressbarExercise.visibility = View.GONE
         binding.tvTitleRest.visibility = View.VISIBLE
         binding.tvTitleExercise.visibility = View.GONE
+        binding.ivExercise.visibility = View.INVISIBLE
 
         //Clean rest timer
         if (restTimer != null) {
@@ -64,7 +76,7 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setRestProgressBar() {
         binding.pbRest.progress = restProgress
 
-        restTimer = object : CountDownTimer(5000, 1000) {
+        restTimer = object : CountDownTimer(3000, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding.pbRest.progress = restStartTime - restProgress
@@ -73,21 +85,30 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 restProgress = 0
+                currentExercisePosition++
 
                 //Activate exercise layout
                 setupExerciseView()
 
             }
         }.start()
-
     }
 
+    //Start exercise layout
     private fun setupExerciseView() {
         //Show only exercise frame layout and title
         binding.flProgressbarRest.visibility = View.GONE
         binding.flProgressbarExercise.visibility = View.VISIBLE
         binding.tvTitleRest.visibility = View.GONE
         binding.tvTitleExercise.visibility = View.VISIBLE
+        binding.ivExercise.visibility = View.VISIBLE
+
+        //Set up specific exercise
+        binding.ivExercise.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        binding.tvTitleExercise.text = exerciseList!![currentExercisePosition].getName()
+
+        //Next exercise text
+        binding.tvNextExercise.text =  getString(R.string.tv_next_exercise,exerciseList!![currentExercisePosition+1].getName())
 
         //Clean exercise timer
         if (exerciseTimer != null) {
@@ -97,13 +118,14 @@ class ExerciseActivity : AppCompatActivity() {
 
         //Start timer
         setExerciseProgressBar()
+
     }
 
     private fun setExerciseProgressBar() {
         exerciseCounter++
         binding.pbExercise.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(10000, 1000) {
+        exerciseTimer = object : CountDownTimer(3000, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 binding.pbExercise.progress = exerciseStartTime - exerciseProgress
@@ -112,9 +134,8 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 exerciseProgress = 0
-                println(exerciseCounter)
 
-                if (exerciseCounter == 2) {
+                if (exerciseCounter == 11) {
 
                     // TODO: Add here DONE ACTIVITY. 
                     Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)
@@ -126,7 +147,6 @@ class ExerciseActivity : AppCompatActivity() {
                 }
             }
         }.start()
-
     }
 
     override fun onDestroy() {
@@ -138,7 +158,5 @@ class ExerciseActivity : AppCompatActivity() {
             restProgress = 0
             exerciseProgress = 0
         }
-
     }
-
 }
