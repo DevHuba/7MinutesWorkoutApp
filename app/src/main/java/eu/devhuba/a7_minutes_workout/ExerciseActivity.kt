@@ -3,19 +3,23 @@ package eu.devhuba.a7_minutes_workout
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import eu.devhuba.a7_minutes_workout.databinding.ActivityExerciseBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class ExerciseActivity : AppCompatActivity() {
-
+class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+    //Binding
     private lateinit var binding: ActivityExerciseBinding
 
+    //Timer
     private val restMillis: Long = 10000
     private val exerciseMillis: Long = 30000
     private val countDown: Long = 1000
-
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
     private val exerciseStartTime = 5
@@ -24,10 +28,15 @@ class ExerciseActivity : AppCompatActivity() {
     private var restProgress = 0
     private var exerciseCounter = 0
 
+    //Exercise
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
+    //Emoji
     private val emoWarningUnicode: Int = 0x26A0
+
+    //Text to speech
+    private var tts: TextToSpeech? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +47,7 @@ class ExerciseActivity : AppCompatActivity() {
 
         binding.ivExercise.visibility = View.INVISIBLE
 
-
+        tts = TextToSpeech(this, this)
 
         //Hide toolbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -56,6 +65,7 @@ class ExerciseActivity : AppCompatActivity() {
 
         //Start preparation timer
         setupRestView()
+
     }
 
     //Start rest layout
@@ -84,6 +94,9 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseList!![currentExercisePosition + 1]
                 .getName(), emoWarning
         )
+        
+        //Text speech start
+        speakOut(binding.tvNextExercise.text.toString())
 
         //Start timer
         setRestProgressBar()
@@ -176,39 +189,29 @@ class ExerciseActivity : AppCompatActivity() {
         }
     }
 
+    //Text to speech
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = tts!!.setLanguage(Locale.getDefault())
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this@ExerciseActivity, "Your language is not supported!", Toast.LENGTH_SHORT).show()
+            }
+
+        } else {
+            Log.e("er", "Error in status check!")
+        }
+    }
+
+    private fun speakOut(text: String) {
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+
+    }
+
     //Emoji logic
     private fun getEmoji(unicode: Int): String {
         return String(Character.toChars(unicode))
     }
+
+
 }
-
-//https://apps.timwhitlock.info/emoji/tables/unicode
-
-//Usage in code (Kotlin)
-//Add 0x instead of U+
-
-//val emoji: String = getEmoji(0x1F389)
-
-//private fun getEmoji(unicode: Int): String {
-//    return String(Character.toChars(unicode))
-//}
-
-//List of nice emojis
-//U+1F4AA	\xF0\x9F\x92\xAA	flexed biceps            0x1F4AA
-//U+1F525	\xF0\x9F\x94\xA5	fire                     0x1F525
-//U+1F4A2	\xF0\x9F\x92\xA2	anger symbol             0x1F4A2
-//U+1F47A	\xF0\x9F\x91\xBA	japanese goblin          0x1F47A
-//U+1F44F	\xF0\x9F\x91\x8F	clapping hands           0x1F44F
-//U+1F44E	\xF0\x9F\x91\x8E	thumbs down              0x1F44E
-//U+1F44D	\xF0\x9F\x91\x8D	thumbs up                0x1F44D
-//U+1F44C	\xF0\x9F\x91\x8C	ok hand                  0x1F44C
-//U+1F44A	\xF0\x9F\x91\x8A	fisted hand              0x1F44A
-//U+1F393	\xF0\x9F\x8E\x93	graduation cap           0x1F393
-//U+1F389	\xF0\x9F\x8E\x89	party popper             0x1F389
-//U+1F320	\xF0\x9F\x8C\xA0	shooting star            0x1F320
-//U+2B50	\xE2\xAD\x90	white medium star            0x2B50
-//U+26A0    \xE2\x9A\xA0	warning sign                 0x26A0
-//U+2728	\xE2\x9C\xA8	sparkles                     0x2728
-//U+270C	\xE2\x9C\x8C	victory hand                 0x270C
-//U+1F603	\xF0\x9F\x98\x83	smiling face with open mouth        0x1F603
-//U+1F601	\xF0\x9F\x98\x81	grinning face with smiling eyes     0x1F601
