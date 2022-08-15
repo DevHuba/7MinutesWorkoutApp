@@ -1,15 +1,16 @@
 package eu.devhuba.a7_minutes_workout
 
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import eu.devhuba.a7_minutes_workout.databinding.ActivityExerciseBinding
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -37,6 +38,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Text to speech
     private var tts: TextToSpeech? = null
+
+    private var playerRest: MediaPlayer? = null
+    private var playerExercise: MediaPlayer? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +74,19 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start rest layout
     private fun setupRestView() {
+
+        //Set up sound
+        try {
+            val soundRestUri = Uri.parse(
+                "android.resource://eu.devhuba.a7_minutes_workout/" + R.raw.be_happy
+            )
+            playerRest = MediaPlayer.create(applicationContext, soundRestUri)
+            playerRest?.isLooping = false
+            playerRest?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         //Show only rest frame layout and title
         binding.flProgressbarRest.visibility = View.VISIBLE
         binding.flProgressbarExercise.visibility = View.GONE
@@ -94,7 +111,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             exerciseList!![currentExercisePosition + 1]
                 .getName(), emoWarning
         )
-        
+
         //Text speech start
         speakOut(binding.tvNextExercise.text.toString())
 
@@ -117,9 +134,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 currentExercisePosition++
 
                 binding.tvNextExercise.visibility = View.GONE
+                //Stop player before start exercise random song
+                playerRest?.stop()
 
                 //Activate exercise layout
                 setupExerciseView()
+
 
             }
         }.start()
@@ -127,6 +147,36 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start exercise layout
     private fun setupExerciseView() {
+        //Random music
+        val listOfSongs: List<String> = mutableListOf(
+            "R.raw.astronaut_in_ocean",
+            "R.raw.gods_country",
+            "R.raw.stranger_things",
+            "R.raw.god_we_need_you_now",
+            "R.raw.wasted_on_u",
+            "R.raw.welcome_to_my_house"
+        )
+
+        //Random first question logic
+        //Add numbers with fixed scope into mutable set
+        val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
+        //Take random number from mutable set
+        val randomFirstSong = scopeForRandomSong.random()
+        //Remove picked random number from mutable set of numbers
+        scopeForRandomSong.remove(randomFirstSong)
+
+        try {
+            val soundExerciseUri = Uri.parse(
+                "android.resource://eu.devhuba.a7_minutes_workout/"
+                        + listOfSongs[randomFirstSong]
+            )
+            playerExercise = MediaPlayer.create(applicationContext, soundExerciseUri)
+            playerExercise?.isLooping = false
+            playerExercise?.start()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
         //Show only exercise frame layout and title
         binding.flProgressbarRest.visibility = View.GONE
         binding.flProgressbarExercise.visibility = View.VISIBLE
@@ -165,8 +215,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 exerciseProgress = 0
 
                 if (exerciseCounter == 11) {
-
-                    // TODO: Add here DONE ACTIVITY. 
                     Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)
                         .show()
 
@@ -174,6 +222,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     setupRestView()
 
                 }
+                playerExercise?.stop()
+
             }
         }.start()
     }
@@ -186,6 +236,15 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             exerciseTimer?.cancel()
             restProgress = 0
             exerciseProgress = 0
+        }
+
+        if (playerRest != null) {
+            playerRest!!.stop()
+
+        }
+        if (playerExercise != null) {
+            playerExercise!!.stop()
+
         }
     }
 
