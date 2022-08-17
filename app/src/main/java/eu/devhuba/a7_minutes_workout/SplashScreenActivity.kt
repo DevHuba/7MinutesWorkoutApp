@@ -22,12 +22,18 @@ class SplashScreenActivity : AppCompatActivity() {
 //        val splashScreen = binding.ssBackground
 //        splashScreen.alpha = 0f
 //        splashScreen.animate().setDuration(1500).alpha(1f).withEndAction {
-//            val i = Intent(this, MainActivity::class.java)
+//                try{
+//                    val i = Intent(this, MainActivity::class.java)
 //            startActivity(i)
 //            finish()
+//                }catch(e:Exception){
+//                    e.printStackTrace()
+//                }
+
+//
 //        }
 
-
+        //Also comment that for test splashscreen
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()

@@ -42,6 +42,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var playerRest: MediaPlayer? = null
     private var playerExercise: MediaPlayer? = null
 
+    private val listOfSongs: List<Int> = mutableListOf(
+        R.raw.astronaut_in_ocean,
+        R.raw.gods_country,
+        R.raw.stranger_things,
+        R.raw.god_we_need_you_now,
+        R.raw.wasted_on_u,
+        R.raw.welcome_to_my_house
+    )
+
+    private val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +94,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             playerRest = MediaPlayer.create(applicationContext, soundRestUri)
             playerRest?.isLooping = false
             playerRest?.start()
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -147,28 +159,19 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start exercise layout
     private fun setupExerciseView() {
-        //Random music
-        val listOfSongs: List<String> = mutableListOf(
-            "R.raw.astronaut_in_ocean",
-            "R.raw.gods_country",
-            "R.raw.stranger_things",
-            "R.raw.god_we_need_you_now",
-            "R.raw.wasted_on_u",
-            "R.raw.welcome_to_my_house"
-        )
 
-        //Random first question logic
-        //Add numbers with fixed scope into mutable set
-        val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
         //Take random number from mutable set
-        val randomFirstSong = scopeForRandomSong.random()
+        val randomSong = scopeForRandomSong.random()
         //Remove picked random number from mutable set of numbers
-        scopeForRandomSong.remove(randomFirstSong)
+        scopeForRandomSong.remove(randomSong)
+        println(scopeForRandomSong)
+
 
         try {
+
             val soundExerciseUri = Uri.parse(
                 "android.resource://eu.devhuba.a7_minutes_workout/"
-                        + listOfSongs[randomFirstSong]
+                        + listOfSongs[randomSong]
             )
             playerExercise = MediaPlayer.create(applicationContext, soundExerciseUri)
             playerExercise?.isLooping = false

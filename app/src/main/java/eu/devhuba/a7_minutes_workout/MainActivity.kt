@@ -15,9 +15,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.flStart.setOnClickListener {
-            val intent = Intent(this, ExerciseActivity::class.java)
+            try{
+                val intent = Intent(this, ExerciseActivity::class.java)
                 startActivity(intent)
-
+            }catch(e:Exception){
+                e.printStackTrace()
+            }
         }
 
 
