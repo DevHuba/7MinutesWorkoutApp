@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rest_bg"
+    android:background="@drawable/bg1"
     tools:context="eu.devhuba.a7_minutes_workout.ExerciseActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -58,10 +59,10 @@
         android:textColor="@color/colorBtThree"
         android:textSize="@dimen/button_text_size"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/flProgressbarRest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline" />
+        />
 
     <TextView
         android:id="@+id/tvTitleExercise"
@@ -168,11 +169,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvNextExercise"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleRest"
+        app:layout_constraintTop_toBottomOf="@id/flProgressbarRest"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="@dimen/button_text_size"
+        android:textSize="@dimen/tv_next_exercise"
         android:gravity="center_horizontal"
         android:textColor="@color/colorBtFour"
         android:fontFamily="@font/bebas_regular"

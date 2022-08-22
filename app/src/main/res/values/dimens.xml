@@ -7,6 +7,7 @@
     <dimen name="pb_border_width_exercise">7dp</dimen>
     <dimen name="tb_title">22sp</dimen>
     <dimen name="tv_time_exercise">50sp</dimen>
+    <dimen name="tv_next_exercise">45sp</dimen>
 
 
 </resources>

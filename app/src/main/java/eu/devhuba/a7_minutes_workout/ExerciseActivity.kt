@@ -1,6 +1,7 @@
 package eu.devhuba.a7_minutes_workout
 
 import android.media.MediaPlayer
+import kotlin.random.Random
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -23,7 +24,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private val countDown: Long = 1000
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
-    private val exerciseStartTime = 5
+    private val exerciseStartTime = 7
     private var exerciseProgress = 0
     private val restStartTime = 5
     private var restProgress = 0
@@ -44,14 +45,21 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private val listOfSongs: List<Int> = mutableListOf(
         R.raw.astronaut_in_ocean,
-        R.raw.gods_country,
-        R.raw.stranger_things,
         R.raw.god_we_need_you_now,
         R.raw.wasted_on_u,
-        R.raw.welcome_to_my_house
+        R.raw.cotton_eye_joe,
+        R.raw.knocking_boots,
+        R.raw.rockstar,
+        R.raw.uptown_funk,
+        R.raw.pirates_of_caribbean,
+        R.raw.ed_sheeran_shivers,
+        R.raw.one_of_them_girls,
+        R.raw.push_it_up,
+        R.raw.running_up_that_hill
     )
 
-    private val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
+    private var gRandomSong: Int? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +67,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
+
+        val numbers = arrayOf(1,2,4,3,4,5,6,7,8,9,10,11,12,13,14)
+        val randomNumber = numbers.random()
+        println("test = $randomNumber")
+
+
 
         binding.ivExercise.visibility = View.INVISIBLE
 
@@ -78,6 +92,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             onBackPressed()
         }
 
+
+
+
+
+
         //Start preparation timer
         setupRestView()
 
@@ -89,7 +108,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Set up sound
         try {
             val soundRestUri = Uri.parse(
-                "android.resource://eu.devhuba.a7_minutes_workout/" + R.raw.be_happy
+                "android.resource://eu.devhuba.a7_minutes_workout/" + R.raw.relax_melody
             )
             playerRest = MediaPlayer.create(applicationContext, soundRestUri)
             playerRest?.isLooping = false
@@ -134,7 +153,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar() {
         binding.pbRest.progress = restProgress
 
-        restTimer = object : CountDownTimer(3000, countDown) {
+        restTimer = object : CountDownTimer(5000, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding.pbRest.progress = restStartTime - restProgress
@@ -160,21 +179,30 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     //Start exercise layout
     private fun setupExerciseView() {
 
-        //Take random number from mutable set
-        val randomSong = scopeForRandomSong.random()
-        //Remove picked random number from mutable set of numbers
-        scopeForRandomSong.remove(randomSong)
+
+        val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
+
         println(scopeForRandomSong)
+        //Take random number from mutable set
+        gRandomSong = scopeForRandomSong.random()
+
+        println(gRandomSong)
+        //Remove picked random number from mutable set of numbers
+        scopeForRandomSong.remove(gRandomSong)
+
+
+        //Set background for exercises
+        binding.clParent.setBackgroundResource(R.drawable.bg_exercise)
 
 
         try {
 
             val soundExerciseUri = Uri.parse(
                 "android.resource://eu.devhuba.a7_minutes_workout/"
-                        + listOfSongs[randomSong]
+                        + listOfSongs[gRandomSong!!]
             )
             playerExercise = MediaPlayer.create(applicationContext, soundExerciseUri)
-            playerExercise?.isLooping = false
+            playerExercise?.isLooping = true
             playerExercise?.start()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -207,7 +235,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         exerciseCounter++
         binding.pbExercise.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(3000, countDown) {
+        exerciseTimer = object : CountDownTimer(7000, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 binding.pbExercise.progress = exerciseStartTime - exerciseProgress
@@ -216,6 +244,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onFinish() {
                 exerciseProgress = 0
+
+                //Set default background
+                binding.clParent.setBackgroundResource(R.drawable.rest_bg)
+
 
                 if (exerciseCounter == 11) {
                     Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)
