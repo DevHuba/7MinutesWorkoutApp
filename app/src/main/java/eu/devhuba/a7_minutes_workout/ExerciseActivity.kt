@@ -1,7 +1,6 @@
 package eu.devhuba.a7_minutes_workout
 
 import android.media.MediaPlayer
-import kotlin.random.Random
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -30,7 +29,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var restProgress = 0
     private var exerciseCounter = 0
 
-    //Exercise
+    //Exercise count
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
@@ -40,9 +39,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     //Text to speech
     private var tts: TextToSpeech? = null
 
+    //Media player
     private var playerRest: MediaPlayer? = null
     private var playerExercise: MediaPlayer? = null
 
+    //Random
     private val listOfSongs: List<Int> = mutableListOf(
         R.raw.astronaut_in_ocean,
         R.raw.god_we_need_you_now,
@@ -57,7 +58,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         R.raw.push_it_up,
         R.raw.running_up_that_hill
     )
-
+    private val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
     private var gRandomSong: Int? = null
 
 
@@ -68,15 +69,25 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
 
-        val numbers = arrayOf(1,2,4,3,4,5,6,7,8,9,10,11,12,13,14)
-        val randomNumber = numbers.random()
-        println("test = $randomNumber")
 
+        // TODO: if RANDOM OK delete line
+        val numbers = listOf(1,2,4,3,4,5,6,7,8,9,10,11,12,13,14)
+        val randomNumber = numbers.shuffled().last()
 
-
+        
         binding.ivExercise.visibility = View.INVISIBLE
 
         tts = TextToSpeech(this, this)
+        speakOut("hello")
+
+        if (tts != null) {
+            tts?.speak("success", TextToSpeech.QUEUE_FLUSH, null, null)
+
+        } else {
+            println("tts = null")
+
+        }
+
 
         //Hide toolbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -101,6 +112,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setupRestView()
 
     }
+
 
     //Start rest layout
     private fun setupRestView() {
@@ -146,6 +158,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Text speech start
         speakOut(binding.tvNextExercise.text.toString())
 
+
         //Start timer
         setRestProgressBar()
     }
@@ -178,17 +191,13 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start exercise layout
     private fun setupExerciseView() {
-
-
-        val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
-
-        println(scopeForRandomSong)
         //Take random number from mutable set
-        gRandomSong = scopeForRandomSong.random()
-
+        gRandomSong = scopeForRandomSong.shuffled().last()
         println(gRandomSong)
         //Remove picked random number from mutable set of numbers
         scopeForRandomSong.remove(gRandomSong)
+        println(scopeForRandomSong)
+
 
 
         //Set background for exercises
@@ -249,7 +258,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 binding.clParent.setBackgroundResource(R.drawable.rest_bg)
 
 
-                if (exerciseCounter == 11) {
+                if (exerciseCounter == 12) {
                     Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)
                         .show()
 
@@ -281,7 +290,15 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             playerExercise!!.stop()
 
         }
+
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+
+        }
+
     }
+
 
     //Text to speech
     override fun onInit(status: Int) {
@@ -293,7 +310,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
         } else {
-            Log.e("er", "Error in status check!")
+            Log.e("err", "Error in status check!")
         }
     }
 
@@ -301,6 +318,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
 
     }
+
 
     //Emoji logic
     private fun getEmoji(unicode: Int): String {
