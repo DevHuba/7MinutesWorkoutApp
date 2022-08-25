@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_second"
+    android:background="@drawable/home_bg"
     android:padding="@dimen/main_screen_main_layout_padding"
     tools:context="eu.devhuba.a7_minutes_workout.MainActivity">
 

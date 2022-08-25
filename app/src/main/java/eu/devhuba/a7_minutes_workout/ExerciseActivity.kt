@@ -1,5 +1,6 @@
 package eu.devhuba.a7_minutes_workout
 
+import android.graphics.Canvas
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -161,7 +162,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar() {
         binding.pbRest.progress = restProgress
 
-        restTimer = object : CountDownTimer(restMillis, countDown) {
+        restTimer = object : CountDownTimer(5000, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding.pbRest.progress = restStartTime - restProgress
@@ -198,7 +199,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         //Set background for exercises
         //Uncomment line for custom background in exercise layout
-//        binding.clParent.setBackgroundResource(R.drawable.bg_exercise)
+        binding.clParent.setBackgroundResource(R.color.colorRest)
 
 
         try {
@@ -241,7 +242,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         exerciseCounter++
         binding.pbExercise.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(exerciseMillis, countDown) {
+        exerciseTimer = object : CountDownTimer(5000, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 binding.pbExercise.progress = exerciseStartTime - exerciseProgress
@@ -253,7 +254,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 //Set default background
                 //Uncomment line for custom background in rest layout
-//                binding.clParent.setBackgroundResource(R.drawable.rest_bg)
+                binding.clParent.setBackgroundResource(R.color.colorRest)
 
 
                 if (exerciseCounter == 12) {
