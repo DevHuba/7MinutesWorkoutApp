@@ -69,11 +69,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
 
-
-        // TODO: if RANDOM OK delete line
-        val numbers = listOf(1,2,4,3,4,5,6,7,8,9,10,11,12,13,14)
-        val randomNumber = numbers.shuffled().last()
-
         
         binding.ivExercise.visibility = View.INVISIBLE
 
@@ -166,7 +161,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar() {
         binding.pbRest.progress = restProgress
 
-        restTimer = object : CountDownTimer(5000, countDown) {
+        restTimer = object : CountDownTimer(restMillis, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding.pbRest.progress = restStartTime - restProgress
@@ -189,6 +184,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }.start()
     }
 
+
     //Start exercise layout
     private fun setupExerciseView() {
         //Take random number from mutable set
@@ -201,7 +197,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
         //Set background for exercises
-        binding.clParent.setBackgroundResource(R.drawable.bg_exercise)
+        //Uncomment line for custom background in exercise layout
+//        binding.clParent.setBackgroundResource(R.drawable.bg_exercise)
 
 
         try {
@@ -244,7 +241,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         exerciseCounter++
         binding.pbExercise.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(7000, countDown) {
+        exerciseTimer = object : CountDownTimer(exerciseMillis, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 binding.pbExercise.progress = exerciseStartTime - exerciseProgress
@@ -255,7 +252,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 exerciseProgress = 0
 
                 //Set default background
-                binding.clParent.setBackgroundResource(R.drawable.rest_bg)
+                //Uncomment line for custom background in rest layout
+//                binding.clParent.setBackgroundResource(R.drawable.rest_bg)
 
 
                 if (exerciseCounter == 12) {
