@@ -1,6 +1,6 @@
 package eu.devhuba.a7_minutes_workout
 
-class ExerciseModel(
+data class ExerciseModel(
     private var id: Int,
     private var name: String,
     private var image: Int,

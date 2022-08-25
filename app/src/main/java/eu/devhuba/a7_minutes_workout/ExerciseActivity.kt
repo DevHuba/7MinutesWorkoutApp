@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import eu.devhuba.a7_minutes_workout.databinding.ActivityExerciseBinding
 import java.util.*
 
@@ -62,6 +63,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private val scopeForRandomSong = (listOfSongs.indices).toMutableSet()
     private var gRandomSong: Int? = null
 
+    //Status
+    private var statusAdapter: StatusAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +73,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
 
-        
         binding.ivExercise.visibility = View.INVISIBLE
 
         tts = TextToSpeech(this, this)
@@ -78,12 +80,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         if (tts != null) {
             tts?.speak("success", TextToSpeech.QUEUE_FLUSH, null, null)
-
         } else {
             println("tts = null")
-
         }
-
 
         //Hide toolbar title
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -99,13 +98,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             onBackPressed()
         }
 
-
-
-
-
-
         //Start preparation timer
         setupRestView()
+
+        //Set status
+        setStatusRV()
 
     }
 
@@ -180,7 +177,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 //Activate exercise layout
                 setupExerciseView()
 
-
             }
         }.start()
     }
@@ -194,7 +190,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Remove picked random number from mutable set of numbers
         scopeForRandomSong.remove(gRandomSong)
         println(scopeForRandomSong)
-
 
 
         //Set background for exercises
@@ -298,7 +293,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     }
 
-
     //Text to speech
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
@@ -318,10 +312,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     }
 
-
     //Emoji logic
     private fun getEmoji(unicode: Int): String {
         return String(Character.toChars(unicode))
+    }
+
+    private fun setStatusRV() {
+        //Manage how your items appear on screen
+        binding.rvStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        statusAdapter = StatusAdapter(exerciseList!!)
+        binding.rvStatus.adapter = statusAdapter
     }
 
 
