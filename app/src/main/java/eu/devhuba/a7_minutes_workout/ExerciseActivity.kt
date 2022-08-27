@@ -25,9 +25,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private val countDown: Long = 1000
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
-    private val exerciseStartTime = 7
+    private val exerciseStartTime = 30
     private var exerciseProgress = 0
-    private val restStartTime = 5
+    private val restStartTime = 10
     private var restProgress = 0
     private var exerciseCounter = 0
 
@@ -75,9 +75,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         binding.ivExercise.visibility = View.INVISIBLE
 
-        tts = TextToSpeech(this, this)
-        speakOut("hello")
-
         if (tts != null) {
             tts?.speak("success", TextToSpeech.QUEUE_FLUSH, null, null)
         } else {
@@ -109,7 +106,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start rest layout
     private fun setupRestView() {
-
         //Set up sound
         try {
             val soundRestUri = Uri.parse(
@@ -170,6 +166,13 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 restProgress = 0
                 currentExercisePosition++
 
+                //Change style of status current item
+                //Change data in ExerciseModel
+                exerciseList!![currentExercisePosition].setIsSelected(true)
+                //Tell to adapter for refresh data of items in recycler view list
+                statusAdapter!!.notifyDataSetChanged()
+
+
                 binding.tvNextExercise.visibility = View.GONE
                 //Stop player before start exercise random song
                 playerRest?.stop()
@@ -184,6 +187,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start exercise layout
     private fun setupExerciseView() {
+
+
+
         //Take random number from mutable set
         gRandomSong = scopeForRandomSong.shuffled().last()
         println(gRandomSong)
@@ -247,10 +253,15 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             override fun onFinish() {
                 exerciseProgress = 0
 
-                //Set default background
-                //Uncomment line for custom background in rest layout
-                binding.clParent.setBackgroundResource(R.color.colorRest)
+                //Change style of status current item
+                //Change data in ExerciseModel
+                exerciseList!![currentExercisePosition].setIsSelected(false)
+                //Tell to adapter for refresh data of items in recycler view list
+                exerciseList!![currentExercisePosition].setIsCompleted(true)
+                statusAdapter!!.notifyDataSetChanged()
 
+                //Custom background in rest layout
+                binding.clParent.setBackgroundResource(R.color.colorRest)
 
                 if (exerciseCounter == 12) {
                     Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)

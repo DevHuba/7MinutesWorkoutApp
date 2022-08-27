@@ -8,6 +8,11 @@
     <dimen name="tb_title">22sp</dimen>
     <dimen name="tv_time_exercise">50sp</dimen>
     <dimen name="tv_next_exercise">45sp</dimen>
+    <dimen name="status_item_dims">30dp</dimen>
     <dimen name="status_number">15sp</dimen>
+    <dimen name="status_completed_item">40dp</dimen>
+    <dimen name="status_current_item">50dp</dimen>
+    <dimen name="status_current_stroke">4dp</dimen>
+
 
 </resources>

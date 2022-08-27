@@ -12,6 +12,14 @@
     <color name="colorPrimary">#B2212121</color>
     <color name="colorPrimaryDark">#B2212121</color>
 
+    //App basic colors
+    <color name="colorOne">#C7C8CA</color>
+    <color name="colorTwo">#0E0E0E</color>
+    <color name="colorThree">#4A4E4F</color>
+    <color name="colorFour">#AD2D31</color>
+    <color name="colorFive">#D3BA62</color>
+
+
     //Home Button
     <color name="colorBtOne">#0E0E0E</color>
     <color name="colorBtTwo">#4A4E4F</color>
