@@ -35,6 +35,8 @@ data class StatusAdapter( val items: ArrayList<ExerciseModel>) :
                 //Change size
                 holder.tvItem.layoutParams.height = 150
                 holder.tvItem.layoutParams.width = 150
+                //Change text size
+                holder.tvItem.textSize = 25f
                 //Change style
                 holder.tvItem.background =
                     ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_current_item)

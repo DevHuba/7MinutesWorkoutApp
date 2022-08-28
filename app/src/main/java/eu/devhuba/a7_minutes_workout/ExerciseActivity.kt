@@ -1,6 +1,5 @@
 package eu.devhuba.a7_minutes_workout
 
-import android.graphics.Canvas
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -31,9 +30,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var restProgress = 0
     private var exerciseCounter = 0
 
-    //Exercise count
-    private var exerciseList: ArrayList<ExerciseModel>? = null
+    //Exercises
+    private var exerciseList = Constants.defaultExerciseList()
     private var currentExercisePosition = -1
+    private val scopeForRandomExercise = (exerciseList.indices).toMutableSet()
+    private var gRandomExercise: Int? = null
 
     //Emoji
     private val emoWarningUnicode: Int = 0x26A0
@@ -73,7 +74,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
 
+        //Hide exercise view
         binding.ivExercise.visibility = View.INVISIBLE
+
+        //Text to speech logic
+        tts = TextToSpeech(this, this)
 
         if (tts != null) {
             tts?.speak("success", TextToSpeech.QUEUE_FLUSH, null, null)
@@ -87,8 +92,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
-
-        exerciseList = Constants.defaultExerciseList()
 
         //Back button logic
         binding.tbExercise.setNavigationOnClickListener {
@@ -136,11 +139,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Take emoji int and make it emoji char
         val emoWarning = getEmoji(emoWarningUnicode)
 
+        //Take random exercise
+        gRandomExercise = scopeForRandomExercise.shuffled().last()
+        println("ex test variable $gRandomExercise")
+        scopeForRandomExercise.remove(gRandomExercise)
+        println("ex test array $scopeForRandomExercise" )
+
         //Next exercise text
         binding.tvNextExercise.text = getString(
             R.string.tv_next_exercise,
             emoWarning,
-            exerciseList!![currentExercisePosition + 1]
+            exerciseList[gRandomExercise!!]
                 .getName(), emoWarning
         )
 
@@ -168,7 +177,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 //Change style of status current item
                 //Change data in ExerciseModel
-                exerciseList!![currentExercisePosition].setIsSelected(true)
+                exerciseList[gRandomExercise!!].setIsSelected(true)
                 //Tell to adapter for refresh data of items in recycler view list
                 statusAdapter!!.notifyDataSetChanged()
 
@@ -190,13 +199,13 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
 
 
+
+
+
         //Take random number from mutable set
         gRandomSong = scopeForRandomSong.shuffled().last()
-        println(gRandomSong)
         //Remove picked random number from mutable set of numbers
         scopeForRandomSong.remove(gRandomSong)
-        println(scopeForRandomSong)
-
 
         //Set background for exercises
         //Uncomment line for custom background in exercise layout
@@ -224,8 +233,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding.ivExercise.visibility = View.VISIBLE
 
         //Set up specific exercise
-        binding.ivExercise.setImageResource(exerciseList!![currentExercisePosition].getImage())
-        binding.tvTitleExercise.text = exerciseList!![currentExercisePosition].getName()
+        binding.ivExercise.setImageResource(exerciseList[gRandomExercise!!].getImage())
+        binding.tvTitleExercise.text = exerciseList[gRandomExercise!!].getName()
 
 
         //Clean exercise timer
@@ -255,9 +264,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 //Change style of status current item
                 //Change data in ExerciseModel
-                exerciseList!![currentExercisePosition].setIsSelected(false)
+                exerciseList[gRandomExercise!!].setIsSelected(false)
                 //Tell to adapter for refresh data of items in recycler view list
-                exerciseList!![currentExercisePosition].setIsCompleted(true)
+                exerciseList[gRandomExercise!!].setIsCompleted(true)
                 statusAdapter!!.notifyDataSetChanged()
 
                 //Custom background in rest layout
@@ -332,7 +341,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Manage how your items appear on screen
         binding.rvStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        statusAdapter = StatusAdapter(exerciseList!!)
+        statusAdapter = StatusAdapter(exerciseList)
         binding.rvStatus.adapter = statusAdapter
     }
 
