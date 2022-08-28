@@ -7,8 +7,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import eu.devhuba.a7_minutes_workout.databinding.StatusItemBinding
 
-data class StatusAdapter( val items: ArrayList<ExerciseModel>) :
+data class StatusAdapter(val items: ArrayList<ExerciseModel>, val statusPositions: Array<Int>) :
     RecyclerView.Adapter<StatusAdapter.ViewHolder>() {
+
+    private var count = 0
+
     class ViewHolder(binding: StatusItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvItem = binding.tvItem
     }
@@ -21,11 +24,19 @@ data class StatusAdapter( val items: ArrayList<ExerciseModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model: ExerciseModel = items[position]
-        holder.tvItem.text = model.getId().toString()
+        val allPositions = statusPositions[position]
+        holder.tvItem.text = allPositions.toString()
+//        holder.tvItem.text = model.getId().toString()
+
+        //Set size of items
+        holder.tvItem.layoutParams.height = 75
+        holder.tvItem.layoutParams.width = 75
+        holder.tvItem.textSize = 15f
 
         when {
             //Style for completed items
             model.getIsCompleted() -> {
+
                 //Change style
                 holder.tvItem.background =
                     ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_completed)
@@ -41,17 +52,19 @@ data class StatusAdapter( val items: ArrayList<ExerciseModel>) :
                 holder.tvItem.background =
                     ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_current_item)
             }
+
             //Style for undone items
             else -> {
                 //Change style
                 holder.tvItem.background =
                     ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_item)
+
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return statusPositions.size
     }
 
 }

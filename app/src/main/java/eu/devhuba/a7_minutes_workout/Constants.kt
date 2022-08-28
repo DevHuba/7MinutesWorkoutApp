@@ -5,9 +5,10 @@ import kotlin.collections.ArrayList
 
 object Constants {
 
+    val exerciseAmount = arrayOf(1,2,3,4,5,6,7,8,9,10,11,11)
+
     fun defaultExerciseList(): ArrayList<ExerciseModel> {
         val exerciseList = ArrayList<ExerciseModel>()
-
         val exerciseOne = ExerciseModel(1, "jumping jacks", R.drawable.ic_jumping_jacks)
         val exerciseTwo = ExerciseModel(2, "abdominal crunch", R.drawable.ic_abdominal_crunch)
         val exerciseThree = ExerciseModel(3, "high knees running", R.drawable.ic_high_knees_running_in_place)

@@ -33,7 +33,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     //Exercises
     private var exerciseList = Constants.defaultExerciseList()
     private var currentExercisePosition = -1
-    private val scopeForRandomExercise = (exerciseList.indices).toMutableSet()
+    private var scopeForRandomExercise = (exerciseList.indices).toMutableSet()
     private var gRandomExercise: Int? = null
 
     //Emoji
@@ -66,6 +66,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Status
     private var statusAdapter: StatusAdapter? = null
+    private val array = Constants.exerciseAmount
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +74,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
+
+
 
         //Hide exercise view
         binding.ivExercise.visibility = View.INVISIBLE
@@ -341,7 +344,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Manage how your items appear on screen
         binding.rvStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        statusAdapter = StatusAdapter(exerciseList)
+        statusAdapter = StatusAdapter(exerciseList,array)
         binding.rvStatus.adapter = statusAdapter
     }
 
