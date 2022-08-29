@@ -1,16 +1,13 @@
 package eu.devhuba.a7_minutes_workout
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import eu.devhuba.a7_minutes_workout.databinding.StatusItemBinding
 
-data class StatusAdapter(val items: ArrayList<ExerciseModel>, val statusPositions: Array<Int>) :
+class StatusAdapter( private val statusPositions: ArrayList<StatusModel>) :
     RecyclerView.Adapter<StatusAdapter.ViewHolder>() {
-
-    private var count = 0
 
     class ViewHolder(binding: StatusItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val tvItem = binding.tvItem
@@ -23,9 +20,8 @@ data class StatusAdapter(val items: ArrayList<ExerciseModel>, val statusPosition
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model: ExerciseModel = items[position]
-        val allPositions = statusPositions[position]
-        holder.tvItem.text = allPositions.toString()
+        val statusPosition = statusPositions[position]
+        holder.tvItem.text = statusPosition.getId().toString()
 //        holder.tvItem.text = model.getId().toString()
 
         //Set size of items
@@ -35,14 +31,14 @@ data class StatusAdapter(val items: ArrayList<ExerciseModel>, val statusPosition
 
         when {
             //Style for completed items
-            model.getIsCompleted() -> {
+            statusPosition.getIsCompleted() -> {
 
                 //Change style
                 holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_completed)
+                    ContextCompat.getDrawable(holder.tvItem.context, R.drawable.bg_status_completed)
             }
             //Style for current items
-            model.getIsSelected() -> {
+            statusPosition.getIsSelected() -> {
                 //Change size
                 holder.tvItem.layoutParams.height = 150
                 holder.tvItem.layoutParams.width = 150
@@ -52,15 +48,8 @@ data class StatusAdapter(val items: ArrayList<ExerciseModel>, val statusPosition
                 holder.tvItem.background =
                     ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_current_item)
             }
-
-            //Style for undone items
-            else -> {
-                //Change style
-                holder.tvItem.background =
-                    ContextCompat.getDrawable(holder.itemView.context, R.drawable.bg_status_item)
-
-            }
         }
+
     }
 
     override fun getItemCount(): Int {

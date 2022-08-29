@@ -5,7 +5,29 @@ import kotlin.collections.ArrayList
 
 object Constants {
 
-    val exerciseAmount = arrayOf(1,2,3,4,5,6,7,8,9,10,11,11)
+    fun defaultStatusList(): ArrayList<StatusModel> {
+        val statusList = ArrayList<StatusModel>()
+        val statusOne = StatusModel(1)
+        val statusTwo = StatusModel(2)
+        val statusThree = StatusModel(3)
+        val statusFour = StatusModel(4)
+        val statusFive = StatusModel(5)
+        val statusSix = StatusModel(6)
+        val statusSeven = StatusModel(7)
+        val statusEight = StatusModel(8)
+        val statusNine = StatusModel(9)
+        val statusTen = StatusModel(10)
+        val statusEleven = StatusModel(11)
+        val statusTwelve = StatusModel(12)
+
+        Collections.addAll(statusList,statusOne,statusTwo,statusThree,statusFour,statusFive,statusSix,
+            statusSeven,
+            statusEight,statusNine,statusTen,statusEleven,statusTwelve)
+
+        return statusList
+    }
+
+
 
     fun defaultExerciseList(): ArrayList<ExerciseModel> {
         val exerciseList = ArrayList<ExerciseModel>()
@@ -28,5 +50,7 @@ object Constants {
 
         return exerciseList
     }
+
+
 
 }

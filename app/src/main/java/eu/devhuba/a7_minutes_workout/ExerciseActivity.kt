@@ -66,7 +66,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Status
     private var statusAdapter: StatusAdapter? = null
-    private val array = Constants.exerciseAmount
+    private var statusList = Constants.defaultStatusList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +74,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         binding = ActivityExerciseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
-
 
 
         //Hide exercise view
@@ -144,9 +143,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         //Take random exercise
         gRandomExercise = scopeForRandomExercise.shuffled().last()
-        println("ex test variable $gRandomExercise")
         scopeForRandomExercise.remove(gRandomExercise)
-        println("ex test array $scopeForRandomExercise" )
 
         //Next exercise text
         binding.tvNextExercise.text = getString(
@@ -159,9 +156,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Text speech start
         speakOut(binding.tvNextExercise.text.toString())
 
-
         //Start timer
         setRestProgressBar()
+
     }
 
     private fun setRestProgressBar() {
@@ -180,7 +177,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 //Change style of status current item
                 //Change data in ExerciseModel
-                exerciseList[gRandomExercise!!].setIsSelected(true)
+//                exerciseList[gRandomExercise!!].setIsSelected(true)
+                //Use for status change status list
+                statusList[currentExercisePosition].setIsSelected(true)
                 //Tell to adapter for refresh data of items in recycler view list
                 statusAdapter!!.notifyDataSetChanged()
 
@@ -199,10 +198,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     //Start exercise layout
     private fun setupExerciseView() {
-
-
-
-
 
 
         //Take random number from mutable set
@@ -267,9 +262,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                 //Change style of status current item
                 //Change data in ExerciseModel
-                exerciseList[gRandomExercise!!].setIsSelected(false)
+//                exerciseList[gRandomExercise!!].setIsSelected(false)
+
+
+                //Set statusList item to be unselected
+                statusList[currentExercisePosition].setIsSelected(false)
                 //Tell to adapter for refresh data of items in recycler view list
-                exerciseList[gRandomExercise!!].setIsCompleted(true)
+//                exerciseList[gRandomExercise!!].setIsCompleted(true)
+                //Set statusList item to be completed
+                statusList[currentExercisePosition].setIsCompleted(true)
+
+
                 statusAdapter!!.notifyDataSetChanged()
 
                 //Custom background in rest layout
@@ -344,7 +347,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Manage how your items appear on screen
         binding.rvStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        statusAdapter = StatusAdapter(exerciseList,array)
+        statusAdapter = StatusAdapter(statusList)
         binding.rvStatus.adapter = statusAdapter
     }
 

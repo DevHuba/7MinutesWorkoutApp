@@ -1,9 +1,8 @@
 package eu.devhuba.a7_minutes_workout
 
-data class ExerciseModel(
+data class StatusModel(
     private var id: Int,
-    private var name: String,
-    private var image: Int,
+    private var image: Int = R.drawable.bg_status_item,
     private var isCompleted: Boolean = false,
     private var isSelected: Boolean = false
 ) {
@@ -14,14 +13,6 @@ data class ExerciseModel(
 
     fun setId(id: Int) {
         this.id = id
-    }
-
-    fun getName(): String {
-        return name
-    }
-
-    fun setName(name: String) {
-        this.name = name
     }
 
     fun getImage(): Int {
