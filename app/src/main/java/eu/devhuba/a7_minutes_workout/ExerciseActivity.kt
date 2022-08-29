@@ -1,5 +1,6 @@
 package eu.devhuba.a7_minutes_workout
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -19,8 +20,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityExerciseBinding
 
     //Timer
-    private val restMillis: Long = 10000
-    private val exerciseMillis: Long = 30000
+    private val restMillis: Long = 1000
+    private val exerciseMillis: Long = 1000
     private val countDown: Long = 1000
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
@@ -75,7 +76,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         setContentView(binding.root)
         setSupportActionBar(binding.tbExercise)
 
-
         //Hide exercise view
         binding.ivExercise.visibility = View.INVISIBLE
 
@@ -97,6 +97,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         //Back button logic
         binding.tbExercise.setNavigationOnClickListener {
+            //Return to home screen
             onBackPressed()
         }
 
@@ -139,7 +140,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
 
         //Take emoji int and make it emoji char
-        val emoWarning = getEmoji(emoWarningUnicode)
+        val emoWarning = getEmoji()
 
         //Take random exercise
         gRandomExercise = scopeForRandomExercise.shuffled().last()
@@ -164,7 +165,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgressBar() {
         binding.pbRest.progress = restProgress
 
-        restTimer = object : CountDownTimer(5000, countDown) {
+        restTimer = object : CountDownTimer(restMillis, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 binding.pbRest.progress = restStartTime - restProgress
@@ -175,14 +176,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 restProgress = 0
                 currentExercisePosition++
 
-                //Change style of status current item
-                //Change data in ExerciseModel
-//                exerciseList[gRandomExercise!!].setIsSelected(true)
                 //Use for status change status list
                 statusList[currentExercisePosition].setIsSelected(true)
                 //Tell to adapter for refresh data of items in recycler view list
                 statusAdapter!!.notifyDataSetChanged()
-
 
                 binding.tvNextExercise.visibility = View.GONE
                 //Stop player before start exercise random song
@@ -250,7 +247,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         exerciseCounter++
         binding.pbExercise.progress = exerciseProgress
 
-        exerciseTimer = object : CountDownTimer(5000, countDown) {
+        exerciseTimer = object : CountDownTimer(exerciseMillis, countDown) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 binding.pbExercise.progress = exerciseStartTime - exerciseProgress
@@ -261,34 +258,32 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 exerciseProgress = 0
 
                 //Change style of status current item
-                //Change data in ExerciseModel
-//                exerciseList[gRandomExercise!!].setIsSelected(false)
-
-
                 //Set statusList item to be unselected
                 statusList[currentExercisePosition].setIsSelected(false)
-                //Tell to adapter for refresh data of items in recycler view list
-//                exerciseList[gRandomExercise!!].setIsCompleted(true)
                 //Set statusList item to be completed
                 statusList[currentExercisePosition].setIsCompleted(true)
-
-
+                //Update recyclerView
                 statusAdapter!!.notifyDataSetChanged()
 
                 //Custom background in rest layout
                 binding.clParent.setBackgroundResource(R.color.colorRest)
-
-                if (exerciseCounter == 12) {
-                    Toast.makeText(this@ExerciseActivity, "WELL DONE ! YOU FINISHED WORKOUT !", Toast.LENGTH_SHORT)
-                        .show()
+                //Check for last exercise
+                if (exerciseCounter == statusList.size) {
+                    //Go into finish activity and finish exercise activity
+                    val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
                 } else {
+                    //Continue challenge
                     setupRestView()
 
                 }
+
                 playerExercise?.stop()
 
             }
+
         }.start()
     }
 
@@ -339,14 +334,15 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     //Emoji logic
-    private fun getEmoji(unicode: Int): String {
-        return String(Character.toChars(unicode))
+    private fun getEmoji(): String {
+        return String(Character.toChars(emoWarningUnicode))
     }
 
     private fun setStatusRV() {
         //Manage how your items appear on screen
         binding.rvStatus.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        //Pass here also exerciseList if you need to change something dynamically in rv
         statusAdapter = StatusAdapter(statusList)
         binding.rvStatus.adapter = statusAdapter
     }

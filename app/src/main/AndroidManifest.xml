@@ -2,12 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="eu.devhuba.a7_minutes_workout">
-
-<!--   Add this for ANDROID 11 to work with tts-->
+    <!-- Add this for ANDROID 11 to work with tts -->
     <queries>
         <intent>
-            <action android:name="android.intent.action.TTS_SERVICE">
-        </action>
+            <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
     </queries>
 
@@ -22,10 +20,13 @@
         android:theme="@style/Theme.7MinutesWorkout"
         tools:targetApi="31">
         <activity
-            android:name="eu.devhuba.a7_minutes_workout.ExerciseActivity"
+            android:name=".FinishActivity"
             android:exported="false" />
         <activity
-            android:name="eu.devhuba.a7_minutes_workout.SplashScreenActivity"
+            android:name=".ExerciseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Starting">
             <intent-filter>
@@ -35,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="eu.devhuba.a7_minutes_workout.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.7MinutesWorkout" />
     </application>

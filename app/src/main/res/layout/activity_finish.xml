@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/colorTwo"
+    tools:context=".FinishActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbFinish"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorTwo"
+        app:titleTextColor="@color/colorOne"/>
+
+    <TextView
+        android:id="@+id/tvEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="@string/end"
+        android:fontFamily="@font/bebas_regular"
+        android:textColor="@color/colorFive"
+        android:textSize="@dimen/button_text_size" />
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:gravity="center">
+
+        <!--Here the ic_action_done image in added in the drawables folders.-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/success_image"
+            android:src="@drawable/success" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/congrats"
+        android:fontFamily="@font/bebas_regular"
+        android:textColor="@color/colorFive"
+        android:textSize="@dimen/button_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completed_text"
+        android:textColor="@color/colorFive"
+        android:textSize="@dimen/tb_title" />
+
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20sp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="55dp"
+        android:backgroundTint="@color/colorSix"
+        android:text="@string/complete_btn_text"
+        android:fontFamily="@font/bebas_regular"
+        android:textColor="@color/colorTwo"
+        android:textSize="@dimen/button_text_size" />
+
+</LinearLayout>

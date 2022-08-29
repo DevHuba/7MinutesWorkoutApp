@@ -8,6 +8,6 @@
         >
 
     </stroke>
-    <solid android:color="@color/colorFive" />
+    <solid android:color="@color/colorOne" />
 
 </shape>
