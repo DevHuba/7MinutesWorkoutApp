@@ -14,37 +14,62 @@
         android:layout_height="220dp"
         android:contentDescription="@string/ivctHome"
         android:src="@drawable/seven"
+        app:layout_constraintBottom_toBottomOf="@id/glH35"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/glHomeImage"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glHomeImage"
+        android:id="@+id/glH35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35"
-        />
+        app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glHomeButton"
+        android:id="@+id/glV70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <FrameLayout
+        android:id="@+id/flBMI"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_start_ripple"
+        app:layout_constraintBottom_toBottomOf="@id/glH65"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/glV70"
+        app:layout_constraintTop_toTopOf="@id/glH35">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bebas_regular"
+            android:text="@string/bmi"
+            android:textColor="@color/colorBtOne"
+            android:textSize="25sp" />
+
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glH65"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65"
-        />
+        app:layout_constraintGuide_percent="0.65" />
 
     <FrameLayout
         android:id="@+id/flStart"
         android:layout_width="170dp"
         android:layout_height="100dp"
         android:background="@drawable/btn_start_ripple"
-        app:layout_constraintTop_toTopOf="@id/glHomeButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/glH65">
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,5 +81,6 @@
             android:textSize="@dimen/button_text_size" />
 
     </FrameLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

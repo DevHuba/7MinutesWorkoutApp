@@ -12,4 +12,9 @@
     <string name="congrats">Congratulations</string>
     <string name="completed_text">You have completed the workout</string>
     <string name="complete_btn_text">back</string>
+    <string name="are_sure">GO BACK ?</string>
+    <string name="custom_no">NO</string>
+    <string name="custom_yes">YES</string>
+    <string name="custom_warning">WARNING : All progress will be lost if \"YES\"</string>
+    <string name="bmi">BMI</string>
 </resources>

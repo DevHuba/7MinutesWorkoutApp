@@ -1,5 +1,6 @@
 package eu.devhuba.a7_minutes_workout
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import eu.devhuba.a7_minutes_workout.databinding.ActivityExerciseBinding
+import eu.devhuba.a7_minutes_workout.databinding.CustomDialogBackBinding
 import java.util.*
 
 
@@ -20,8 +22,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityExerciseBinding
 
     //Timer
-    private val restMillis: Long = 1000
-    private val exerciseMillis: Long = 1000
+    private val restMillis: Long = 10000
+    private val exerciseMillis: Long = 30000
     private val countDown: Long = 1000
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null
@@ -95,10 +97,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
-        //Back button logic
+        //Taskbar back button
         binding.tbExercise.setNavigationOnClickListener {
-            //Return to home screen
-            onBackPressed()
+            customDialogForBack()
         }
 
         //Start preparation timer
@@ -107,6 +108,29 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Set status
         setStatusRV()
 
+    }
+
+    //Fix of back button press issue
+    override fun onBackPressed() {
+        customDialogForBack()
+    }
+
+
+    private fun customDialogForBack() {
+        val customDialog = Dialog(this)
+        val dialogBinding = CustomDialogBackBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        //Turn off cancel when you touch outside of custom dialog window
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.btnYes.setOnClickListener{
+            //Close specific activity
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+        dialogBinding.btnNo.setOnClickListener{
+            customDialog.dismiss()
+        }
+        customDialog.show()
     }
 
 

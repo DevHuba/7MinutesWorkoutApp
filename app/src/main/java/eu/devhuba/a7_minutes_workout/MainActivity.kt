@@ -14,9 +14,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Into exercises
         binding.flStart.setOnClickListener {
             try{
                 val intent = Intent(this, ExerciseActivity::class.java)
+                startActivity(intent)
+            }catch(e:Exception){
+                e.printStackTrace()
+            }
+        }
+
+        //Into BMI calculator
+        binding.flBMI.setOnClickListener {
+            try{
+                val intent = Intent(this, BMIActivity::class.java)
                 startActivity(intent)
             }catch(e:Exception){
                 e.printStackTrace()
