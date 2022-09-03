@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".BMIActivity"
-    android:background="@color/colorTwo">
+    android:background="@color/colorTwo"
+    tools:context=".BMIActivity">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbBMI"
-        android:background="@null"
-        android:theme="@style/ToolbarTheme"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize" >
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@null"
+        android:theme="@style/ToolbarTheme">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,13 +30,13 @@
     <!--positioned below toolbar-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMetricUnitWeight"
-        android:layout_margin="10dp"
-        app:boxStrokeColor="@color/colorOne"
-        app:hintTextColor="@color/colorTwo"
-        android:layout_below="@id/tbBMI"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tbBMI"
+        android:layout_margin="10dp"
+        app:boxStrokeColor="@color/colorOne"
+        app:hintTextColor="@color/colorTwo">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etMetricUnitWeight"
@@ -45,36 +46,37 @@
             android:inputType="numberDecimal"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <!--positioned below tilMetricUnitWeight-->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_below="@id/tilMetricUnitWeight"
         android:id="@+id/tilMetricUnitHeight"
-        app:boxStrokeColor="@color/colorOne"
-        app:hintTextColor="@color/colorTwo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tilMetricUnitWeight"
         android:layout_margin="10dp"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="10dp"
+        app:boxStrokeColor="@color/colorOne"
+        app:hintTextColor="@color/colorTwo">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etMetricUnitHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="HEIGHT (in cm)"
+            android:hint="@string/height_in_cm"
             android:inputType="numberDecimal"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--positioned below tilMetricUnitHeight-->
     <LinearLayout
-        android:padding="10dp"
-        android:layout_below="@id/tilMetricUnitHeight"
         android:id="@+id/llDisplayBMIResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tilMetricUnitHeight"
         android:layout_marginTop="25dp"
         android:orientation="vertical"
+        android:padding="10dp"
         android:visibility="invisible"
         tools:visibility="visible">
 
@@ -82,9 +84,11 @@
             android:id="@+id/tvYourBMI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bebas_regular"
             android:gravity="center"
             android:text="@string/your_bmi"
             android:textAllCaps="true"
+            android:textColor="@color/colorFive"
             android:textSize="16sp" />
 
         <TextView
@@ -92,7 +96,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/bebas_regular"
             android:gravity="center"
+            android:textColor="@color/colorFive"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="15.00" />
@@ -102,7 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/bebas_regular"
             android:gravity="center"
+            android:textColor="@color/colorFive"
             android:textSize="18sp"
             tools:text="Normal" />
 
@@ -111,22 +119,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/mukta_regular"
             android:gravity="center"
-            android:textSize="18sp"
-            tools:text="Normal" />
+            android:textColor="@color/colorFive"
+            android:textSize="12sp"
+            tools:text="description of your bmi" />
+
     </LinearLayout>
 
+
     <Button
-        android:layout_below="@id/llDisplayBMIResult"
         android:id="@+id/btnCalculateUnits"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/llDisplayBMIResult"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="20sp"
         android:backgroundTint="@color/colorFive"
-        android:text="@string/calculate"
         android:fontFamily="@font/bebas_regular"
+        android:text="@string/calculate"
         android:textColor="@color/colorTwo"
         android:textSize="@dimen/button_text_size" />
+
 </RelativeLayout>
-    <!--END-->
