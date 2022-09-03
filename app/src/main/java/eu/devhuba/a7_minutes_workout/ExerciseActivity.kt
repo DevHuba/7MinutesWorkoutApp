@@ -90,11 +90,13 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             println("tts = null")
         }
 
-        //Hide toolbar title
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+
 
         if (supportActionBar != null) {
+            //Show back arrow
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            //Hide toolbar title
+            supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
         //Taskbar back button
