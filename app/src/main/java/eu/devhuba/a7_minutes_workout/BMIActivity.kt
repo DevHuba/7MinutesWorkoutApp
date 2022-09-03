@@ -2,7 +2,12 @@ package eu.devhuba.a7_minutes_workout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import eu.devhuba.a7_minutes_workout.databinding.ActivityBmiBinding
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class BMIActivity : AppCompatActivity() {
 
@@ -28,6 +33,91 @@ class BMIActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.btnCalculateUnits.setOnClickListener {
+            //Check for validated units
+            if (validateMetricUnits()) {
+                //BMI calculation
+                val height: Float = binding.etMetricUnitHeight.text.toString().toFloat() / 100
+                val weight: Float = binding.etMetricUnitWeight.text.toString().toFloat()
+                val bmi = weight / (height * height)
+
+                //Show BMI calculation results in UI
+                displayBMIResults(bmi)
+
+
+            } else {
+                Toast.makeText(this@BMIActivity, "Error in validating units", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
     }
+
+    private fun displayBMIResults(bmi: Float) {
+
+        val bmiLabel: String
+        val bmiDescription: String
+
+        //Descriptions accordingly to bmi value
+        if (bmi.compareTo(15f) <= 0) {
+            bmiLabel = "Very severely underweight"
+            bmiDescription = "Oops! Please eat more and Your body praise you ..."
+        } else if (bmi.compareTo(15f) > 0 && (bmi.compareTo(16f)) <= 0) {
+            bmiLabel = "Severely underweight"
+            bmiDescription = "Oops! Please eat more and Your body praise you ..."
+        } else if (bmi.compareTo(16f) > 0 && (bmi.compareTo(18.5f)) <= 0) {
+            bmiLabel = "Underweight"
+            bmiDescription = "Oops! Please eat more and Your body praise you ..."
+        } else if (bmi.compareTo(18.5f) > 0 && (bmi.compareTo(25f)) <= 0) {
+            bmiLabel = "Normal"
+            bmiDescription = "Congrats ! You are in a good shape !"
+        } else if (bmi.compareTo(25f) > 0 && (bmi.compareTo(30f)) <= 0) {
+            bmiLabel = "Overweight"
+            bmiDescription = "Be sure that you feel yourself comfortable  and if no  do more workout ..."
+        } else if (bmi.compareTo(30f) > 0 && (bmi.compareTo(35f)) <= 0) {
+            bmiLabel = "Obese"
+            bmiDescription = "Strongly recommend You to take care of yourself !"
+        } else if (bmi.compareTo(35f) > 0 && (bmi.compareTo(40f)) <= 0) {
+            bmiLabel = "Very obese"
+            bmiDescription = "Take a gym pass right now !"
+        } else {
+            bmiLabel = "Extremely obese"
+            bmiDescription = "Nothing to say here..."
+        }
+
+        //Change color of BMI value
+        if (bmi <= 18.4 || bmi >= 25.1) {
+            binding.tvBMIValue.setTextColor(ContextCompat.getColor(this, R.color.colorFour))
+            binding.tvBMITitle.setTextColor(ContextCompat.getColor(this, R.color.colorFour))
+        } else {
+            binding.tvBMIValue.setTextColor(ContextCompat.getColor(this, R.color.colorSix))
+            binding.tvBMITitle.setTextColor(ContextCompat.getColor(this, R.color.colorSix))
+
+        }
+
+        //Format bmi raw value
+        val bmiValue = BigDecimal(bmi.toDouble()).setScale(2, RoundingMode.HALF_EVEN).toString()
+
+        binding.llDisplayBMIResult.visibility = View.VISIBLE
+        binding.tvBMIValue.text = bmiValue
+        binding.tvBMITitle.text = bmiLabel
+        binding.tvBMIDescription.text = bmiDescription
+
+    }
+
+    private fun validateMetricUnits(): Boolean {
+        var isValid = true
+
+        if (binding.etMetricUnitHeight.text.toString().isEmpty()) {
+            isValid = false
+        } else if (binding.etMetricUnitHeight.text.toString().isEmpty()) {
+            isValid = false
+        }
+
+
+        return isValid
+
+    }
+
+
 }

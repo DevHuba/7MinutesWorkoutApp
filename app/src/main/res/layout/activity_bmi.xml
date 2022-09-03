@@ -30,16 +30,15 @@
     <!--positioned below toolbar-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMetricUnitWeight"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/BMIti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tbBMI"
-        android:layout_margin="10dp"
-        app:boxStrokeColor="@color/colorOne"
-        app:hintTextColor="@color/colorTwo">
+        android:layout_margin="10dp">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etMetricUnitWeight"
+            style="@style/BMIti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/weight_in_kg"
@@ -50,17 +49,16 @@
     <!--positioned below tilMetricUnitWeight-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMetricUnitHeight"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/BMIti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tilMetricUnitWeight"
         android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
-        app:boxStrokeColor="@color/colorOne"
-        app:hintTextColor="@color/colorTwo">
+        android:layout_marginTop="10dp">
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etMetricUnitHeight"
+            style="@style/BMIti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/height_in_cm"
@@ -99,19 +97,19 @@
             android:fontFamily="@font/bebas_regular"
             android:gravity="center"
             android:textColor="@color/colorFive"
-            android:textSize="18sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             tools:text="15.00" />
 
         <TextView
-            android:id="@+id/tvBMIType"
+            android:id="@+id/tvBMITitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/bebas_regular"
             android:gravity="center"
             android:textColor="@color/colorFive"
-            android:textSize="18sp"
+            android:textSize="22sp"
             tools:text="Normal" />
 
         <TextView

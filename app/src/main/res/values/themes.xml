@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-<!--    SPLASH SCREEN-->
+<!--   TB home theme-->
     <style name="Starting" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
@@ -22,12 +22,22 @@
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
-    <!--    SPLASH SCREEN-->
+    <!--    TB exercise theme-->
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.MaterialComponents.ActionBar">
         <!-- Primary brand color. -->
         <item name="colorControlNormal">@color/colorBtThree</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/colorBtThree</item>
+    </style>
+
+    <!--    Ti bmi theme -->
+    <style name="BMIti" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- Primary brand color. -->
+        <item name="boxStrokeColor">@color/colorTwo</item>
+        <item name="hintTextColor">@color/colorTwo</item>
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxBackgroundColor">@color/colorFive</item>
+        <item name="textBackground">@color/colorFour</item>
     </style>
 
 </resources>
