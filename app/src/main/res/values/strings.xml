@@ -17,4 +17,8 @@
     <string name="custom_yes">YES</string>
     <string name="custom_warning">WARNING : All progress will be lost if \"YES\"</string>
     <string name="bmi">BMI</string>
+    <string name="calculate">CALCULATE</string>
+    <string name="your_bmi">YOUR BMI</string>
+    <string name="weight_in_kg">WEIGHT (in kg)</string>
+    <string name="bmi_calculator">BMI CALCULATOR</string>
 </resources>
