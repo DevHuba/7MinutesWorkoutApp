@@ -6,7 +6,6 @@ import eu.devhuba.a7_minutes_workout.databinding.ActivityBmiBinding
 
 class BMIActivity : AppCompatActivity() {
 
-    //Add before onCreate method
     private lateinit var binding: ActivityBmiBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,20 +15,18 @@ class BMIActivity : AppCompatActivity() {
         setSupportActionBar(binding.tbBMI)
 
         if (supportActionBar != null) {
+            //Enable back arrow in toolBar
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.title = "Calculate BMI"
+            //Hide toolbar title
+            supportActionBar?.setDisplayShowTitleEnabled(false);
         }
 
 
         //Taskbar back button
         binding.tbBMI.setNavigationOnClickListener {
             onBackPressed()
-
-
+            finish()
         }
-
-
-
 
 
     }
