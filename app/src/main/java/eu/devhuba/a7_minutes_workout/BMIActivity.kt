@@ -34,8 +34,7 @@ class BMIActivity : AppCompatActivity() {
         }
 
         binding.btnCalculateUnits.setOnClickListener {
-            //Check for validated units
-            if (validateMetricUnits()) {
+
                 //BMI calculation
                 val height: Float = binding.etMetricUnitHeight.text.toString().toFloat() / 100
                 val weight: Float = binding.etMetricUnitWeight.text.toString().toFloat()
@@ -44,10 +43,6 @@ class BMIActivity : AppCompatActivity() {
                 //Show BMI calculation results in UI
                 displayBMIResults(bmi)
 
-
-            } else {
-                Toast.makeText(this@BMIActivity, "Error in validating units", Toast.LENGTH_SHORT).show()
-            }
         }
 
 
@@ -69,7 +64,7 @@ class BMIActivity : AppCompatActivity() {
             bmiLabel = "Underweight"
             bmiDescription = "Oops! Please eat more and Your body praise you ..."
         } else if (bmi.compareTo(18.5f) > 0 && (bmi.compareTo(25f)) <= 0) {
-            bmiLabel = "Normal"
+            bmiLabel = "Good"
             bmiDescription = "Congrats ! You are in a good shape !"
         } else if (bmi.compareTo(25f) > 0 && (bmi.compareTo(30f)) <= 0) {
             bmiLabel = "Overweight"
@@ -105,19 +100,6 @@ class BMIActivity : AppCompatActivity() {
 
     }
 
-    private fun validateMetricUnits(): Boolean {
-        var isValid = true
-
-        if (binding.etMetricUnitHeight.text.toString().isEmpty()) {
-            isValid = false
-        } else if (binding.etMetricUnitHeight.text.toString().isEmpty()) {
-            isValid = false
-        }
-
-
-        return isValid
-
-    }
 
 
 }

@@ -22,4 +22,6 @@
     <string name="weight_in_kg">WEIGHT (in kg)</string>
     <string name="bmi_calculator">BMI CALCULATOR</string>
     <string name="height_in_cm">HEIGHT (in cm)</string>
+    <string name="history_title">History</string>
+    <string name="history_button_image">history button image</string>
 </resources>

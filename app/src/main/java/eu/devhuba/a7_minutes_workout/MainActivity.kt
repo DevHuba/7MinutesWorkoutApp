@@ -34,6 +34,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //Into history
+        binding.flHistory.setOnClickListener {
+            try{
+                val intent = Intent(this, HistoryActivity::class.java)
+                startActivity(intent)
+            }catch(e:Exception){
+                e.printStackTrace()
+            }
+        }
+
 
     }
 }
