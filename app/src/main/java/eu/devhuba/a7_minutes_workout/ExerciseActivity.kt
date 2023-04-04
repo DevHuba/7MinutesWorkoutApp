@@ -22,8 +22,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var binding: ActivityExerciseBinding
 
     //Timer
-    private val restMillis: Long = 10000
-    private val exerciseMillis: Long = 30000
+//    10000
+    private val restMillis: Long = 1000
+//    30000
+    private val exerciseMillis: Long = 1000
     private val countDown: Long = 1000
     private var restTimer: CountDownTimer? = null
     private var exerciseTimer: CountDownTimer? = null

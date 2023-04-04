@@ -41,7 +41,9 @@ android {
 }
 
 
+
 dependencies {
+
 
     def room_version = "2.5.1"
 
@@ -62,8 +64,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    implementation ('com.example:library1:1.0') {
-        exclude group: 'com.example', module: 'duplicateclass'
+    implementation ('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10') {
+        exclude group: 'kotlin-stdlib-jdk8-1.8.10'
     }
-    implementation 'com.example:library2:1.0'
+
+
 }
+
+//configurations.all {
+//    resolutionStrategy {
+//        force 'kotlin-stdlib-jdk8-1.8.10'
+//    }
+//}
+
+//    configurations {
+//        compile.exclude module: 'kotlin-stdlib-jdk8-1.7.20'
+//    }
