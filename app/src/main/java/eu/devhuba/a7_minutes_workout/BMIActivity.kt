@@ -68,7 +68,7 @@ class BMIActivity : AppCompatActivity() {
             bmiDescription = "Congrats ! You are in a good shape !"
         } else if (bmi.compareTo(25f) > 0 && (bmi.compareTo(30f)) <= 0) {
             bmiLabel = "Overweight"
-            bmiDescription = "Be sure that you feel yourself comfortable  and if no  do more workout ..."
+            bmiDescription = "Be sure that you feel yourself comfortable  and if no, do more workout ..."
         } else if (bmi.compareTo(30f) > 0 && (bmi.compareTo(35f)) <= 0) {
             bmiLabel = "Obese"
             bmiDescription = "Strongly recommend You to take care of yourself !"

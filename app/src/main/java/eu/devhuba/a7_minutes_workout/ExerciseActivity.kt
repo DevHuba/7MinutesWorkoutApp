@@ -113,6 +113,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     //Fix of back button press issue
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         customDialogForBack()
     }

@@ -20,13 +20,14 @@ class HistoryActivity : AppCompatActivity() {
             //Enable back arrow in toolBar
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             //Hide toolbar title
-            supportActionBar?.setDisplayShowTitleEnabled(false);
+            supportActionBar?.setDisplayShowTitleEnabled(false)
         }
 
         binding.tbHistory.setNavigationOnClickListener {
             onBackPressed()
             finish()
         }
+
 
 
     }
