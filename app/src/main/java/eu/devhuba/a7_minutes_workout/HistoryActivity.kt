@@ -7,7 +7,6 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import eu.devhuba.a7_minutes_workout.databinding.ActivityHistoryBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HistoryActivity : AppCompatActivity() {
@@ -22,8 +21,7 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.tbHistory)
 
-        //Creating dao variable to use our DB
-        val historyDao = (application as WorkoutApp).db.historyDao()
+
 
         if (supportActionBar != null) {
             //Enable back arrow in toolBar
@@ -38,6 +36,8 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         binding.btnShowHistory.setOnClickListener {
+            //Creating dao variable to use our DB
+            val historyDao = (application as WorkoutApp).db.historyDao()
             //Use DB
             getAllCompletedDates(historyDao)
         }
@@ -54,9 +54,12 @@ class HistoryActivity : AppCompatActivity() {
 
                     binding.rvHistory.layoutManager = LinearLayoutManager(this@HistoryActivity)
 
+                    Log.e("inf", "allCompletedDateList -> $allCompletedDateList")
+
+
                     val dates = ArrayList<String>()
-                    for (date in allCompletedDateList) {
-                        dates.add(date.date)
+                    for (item in allCompletedDateList) {
+                        dates.add(item.date)
                     }
 
                     val historyAdapter = ItemAdapter(dates)

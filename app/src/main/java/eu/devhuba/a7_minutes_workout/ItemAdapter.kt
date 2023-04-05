@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import eu.devhuba.a7_minutes_workout.databinding.ItemHistoryRowBinding
 
-class ItemAdapter(private val items: ArrayList<HistoryEntity>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(private val items: ArrayList<String>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
-    class ViewHolder(binding: ItemHistoryRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        val llDateItemMain = binding.llHistoryItem
+    inner class ViewHolder(binding: ItemHistoryRowBinding) : RecyclerView.ViewHolder(binding.root) {
+//        val llDateItemMain = binding.llHistoryItem
         val tvPosition = binding.tvPosition
         val tvDate = binding.tvItem
     }
@@ -21,9 +21,9 @@ class ItemAdapter(private val items: ArrayList<HistoryEntity>) : RecyclerView.Ad
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val date : HistoryEntity = items[position]
+        val date : String = items[position]
         holder.tvPosition.text = (position + 1).toString()
-        holder.tvDate.text = date.toString()
+        holder.tvDate.text = date
 
     }
 
